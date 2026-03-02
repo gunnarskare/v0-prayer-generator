@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter, Merriweather } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { AuthHandler } from '@/components/auth-handler'
 import './globals.css'
 
 const inter = Inter({ 
@@ -46,6 +47,7 @@ export default function RootLayout({
   return (
     <html lang="nb" className={`${inter.variable} ${merriweather.variable}`}>
       <body className="font-sans antialiased">
+        <AuthHandler />
         {children}
         <Analytics />
       </body>
