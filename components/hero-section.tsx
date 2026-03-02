@@ -16,7 +16,7 @@ export function HeroSection() {
           {/* Badge */}
           <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm">
             <Book className="h-4 w-4 text-primary" />
-            <span>Gratis bibellesning og bønn</span>
+            <span>Bibellesning og bønn</span>
           </div>
 
           {/* Headline */}
