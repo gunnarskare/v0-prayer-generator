@@ -6,7 +6,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Card, CardContent } from "@/components/ui/card"
-import { ArrowLeft, Heart, Printer, Share2 } from "lucide-react"
+import { ArrowLeft, Heart, Printer, Share2, Users } from "lucide-react"
+import Link from "next/link"
 
 const SECTIONS = [
   {
@@ -216,17 +217,28 @@ export default function PrayerGenerator({
   return (
     <div className="w-full">
       <div className="mx-auto max-w-xl px-4 py-16 sm:py-24">
+        {/* Back Link */}
+        <div className="mb-8">
+          <Link 
+            href="/bonn" 
+            className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Tilbake til bønner
+          </Link>
+        </div>
+
         {/* Header */}
         <div className="text-center">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
-            <Heart className="h-8 w-8 text-primary" />
+            <Users className="h-8 w-8 text-primary" />
           </div>
           <h1 className="mt-6 font-serif text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Generer Din Bønn
+            Helhetlig bønn for meg og min familie
           </h1>
           <p className="mt-4 text-muted-foreground text-pretty">
-            Lag en personlig bønn tilpasset din livssituasjon. 
-            Bønnen kan inkludere din ektefelle hvis du ønsker.
+            En omfattende daglig bønn som dekker overgivelse, tilbedelse, bekjennelse, 
+            takknemlighet, beskyttelse og velsignelse. Kan personliggjøres med din ektefelles navn.
           </p>
         </div>
 
