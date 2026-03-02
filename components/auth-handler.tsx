@@ -11,13 +11,21 @@ export function AuthHandler() {
     const handleAuthCallback = async () => {
       // Check if there's a hash fragment with auth data
       const hash = window.location.hash
-      if (!hash || hash.length <= 1) return
+      console.log("[v0] AuthHandler - hash:", hash)
+      if (!hash || hash.length <= 1) {
+        console.log("[v0] AuthHandler - no hash found, exiting")
+        return
+      }
 
       // Parse the hash fragment
       const params = new URLSearchParams(hash.substring(1))
       const accessToken = params.get("access_token")
       const refreshToken = params.get("refresh_token")
       const type = params.get("type")
+      
+      console.log("[v0] AuthHandler - type:", type)
+      console.log("[v0] AuthHandler - has accessToken:", !!accessToken)
+      console.log("[v0] AuthHandler - has refreshToken:", !!refreshToken)
 
       if (accessToken && refreshToken) {
         const supabase = createClient()
@@ -29,9 +37,11 @@ export function AuthHandler() {
         })
 
         if (error) {
-          console.error("Error setting session:", error)
+          console.error("[v0] AuthHandler - Error setting session:", error)
           return
         }
+        
+        console.log("[v0] AuthHandler - Session set successfully, redirecting...")
 
         // Clear the hash from the URL
         window.history.replaceState(null, "", window.location.pathname)
