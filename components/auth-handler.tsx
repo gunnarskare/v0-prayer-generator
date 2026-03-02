@@ -39,6 +39,9 @@ export function AuthHandler() {
         // Redirect based on type
         if (type === "recovery") {
           router.push("/auth/nytt-passord")
+        } else if (type === "signup" || type === "email_change") {
+          // Email verified - redirect to dashboard or home
+          router.push("/oversikt")
         } else {
           router.push("/")
         }
