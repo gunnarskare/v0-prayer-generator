@@ -4,6 +4,7 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { ProfileSection } from "@/components/profile-section"
 import { QuickActions } from "@/components/quick-actions"
+import { FamilyMembersManager } from "@/components/family-members-manager"
 
 export default async function MinSidePage() {
   const supabase = await createClient()
@@ -43,7 +44,7 @@ export default async function MinSidePage() {
         <div className="mx-auto max-w-7xl px-4 py-10">
           <div className="grid gap-8 lg:grid-cols-3">
             {/* Profile Settings */}
-            <div className="lg:col-span-2">
+            <div className="space-y-8 lg:col-span-2">
               <ProfileSection 
                 userId={user.id}
                 initialProfile={{
@@ -52,6 +53,9 @@ export default async function MinSidePage() {
                   wife_name: profile?.wife_name || "",
                 }}
               />
+              
+              {/* Family Members */}
+              <FamilyMembersManager />
             </div>
 
             {/* Quick Actions */}

@@ -2,7 +2,8 @@
 
 import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
-import { Heart, Users, Sun, Moon, Utensils, Shield, Clock, ChevronRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Heart, Users, Sun, Moon, Utensils, Shield, Clock, ChevronRight, Plus, BookOpen } from "lucide-react"
 
 const prayers = [
   {
@@ -71,6 +72,20 @@ export function PrayersList() {
             Utforsk våre bønner for ulike anledninger. Noen bønner kan personliggjøres 
             med navn på deg og din familie.
           </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Button asChild variant="secondary" className="gap-2">
+              <Link href="/bonn/lag-bonn">
+                <Plus className="h-4 w-4" />
+                Lag egen bønn
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="gap-2 border-hero-foreground/20 text-hero-foreground hover:bg-white/10">
+              <Link href="/bonn/mine-bonner">
+                <BookOpen className="h-4 w-4" />
+                Mine bønner
+              </Link>
+            </Button>
+          </div>
         </div>
       </div>
 
