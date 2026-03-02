@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
+import { ArrowLeft, Heart, Printer, Share2 } from "lucide-react"
 
 const SECTIONS = [
   {
@@ -111,95 +112,179 @@ export default function PrayerGenerator() {
 
   const canShowPrayer = hasWife === false || (hasWife === true && wifeName.trim().length > 0)
 
+  const handlePrint = () => {
+    window.print()
+  }
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "Min Daglige Bønn - dinmisjon.no",
+          text: "Oppdag personlig bønn på dinmisjon.no",
+          url: window.location.href,
+        })
+      } catch {
+        // User cancelled sharing
+      }
+    }
+  }
+
   if (showPrayer) {
     return (
-      <div className="min-h-screen bg-background py-8 px-4">
-        <div className="max-w-3xl mx-auto">
-          <Card className="shadow-lg">
-            <CardHeader className="border-b">
-              <CardTitle className="text-2xl font-serif text-center">Din Daglige Bønn</CardTitle>
-            </CardHeader>
-            <CardContent className="pt-6 space-y-8">
-              {SECTIONS.map((section, index) => {
-                const processedTitle = processText(section.title, hasWife ?? false, wifeName)
-                const processedText = processText(section.text, hasWife ?? false, wifeName)
-
-                return (
-                  <section key={index} className="border-b border-border/50 pb-6 last:border-b-0">
-                    <h2 className="text-xl font-semibold mb-4 text-primary">{processedTitle}</h2>
-                    <div className="text-muted-foreground">{renderParagraphs(processedText)}</div>
-                  </section>
-                )
-              })}
-
-              <div className="pt-4">
-                <Button onClick={handleBack} variant="outline" className="w-full">
-                  ← Tilbake / Endre
+      <div className="w-full">
+        {/* Prayer Header */}
+        <div className="bg-section-alt border-b border-border">
+          <div className="mx-auto max-w-3xl px-4 py-6">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h1 className="font-serif text-2xl font-bold text-foreground sm:text-3xl">
+                  Din Daglige Bønn
+                </h1>
+                {hasWife && wifeName && (
+                  <p className="mt-1 text-muted-foreground">
+                    Inkluderer bønn for {wifeName}
+                  </p>
+                )}
+              </div>
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm" onClick={handlePrint} className="gap-2">
+                  <Printer className="h-4 w-4" />
+                  <span className="hidden sm:inline">Skriv ut</span>
+                </Button>
+                <Button variant="outline" size="sm" onClick={handleShare} className="gap-2">
+                  <Share2 className="h-4 w-4" />
+                  <span className="hidden sm:inline">Del</span>
                 </Button>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
+        </div>
+
+        {/* Prayer Content */}
+        <div className="mx-auto max-w-3xl px-4 py-10">
+          <div className="space-y-10">
+            {SECTIONS.map((section, index) => {
+              const processedTitle = processText(section.title, hasWife ?? false, wifeName)
+              const processedText = processText(section.text, hasWife ?? false, wifeName)
+
+              return (
+                <section key={index} className="group">
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-medium text-primary">
+                      {index + 1}
+                    </div>
+                    <div className="flex-1">
+                      <h2 className="font-serif text-xl font-semibold text-foreground">
+                        {processedTitle}
+                      </h2>
+                      <div className="mt-4 space-y-4 text-muted-foreground leading-relaxed">
+                        {renderParagraphs(processedText)}
+                      </div>
+                    </div>
+                  </div>
+                  {index < SECTIONS.length - 1 && (
+                    <div className="mt-10 border-b border-border/50" />
+                  )}
+                </section>
+              )
+            })}
+          </div>
+
+          {/* Back Button */}
+          <div className="mt-12 border-t border-border pt-8">
+            <Button onClick={handleBack} variant="outline" className="gap-2">
+              <ArrowLeft className="h-4 w-4" />
+              Tilbake / Endre
+            </Button>
+          </div>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center py-8 px-4">
-      <Card className="w-full max-w-md shadow-lg">
-        <CardHeader className="text-center border-b">
-          <CardTitle className="text-2xl font-serif">dinmisjon.no</CardTitle>
-          <p className="text-muted-foreground text-sm mt-2">Generer din personlige bønn</p>
-        </CardHeader>
-        <CardContent className="pt-6 space-y-6">
-          <div className="space-y-4">
-            <Label className="text-base font-medium">Har du kone?</Label>
-            <RadioGroup
-              value={hasWife === null ? "" : hasWife ? "yes" : "no"}
-              onValueChange={(value) => {
-                setHasWife(value === "yes")
-                if (value === "no") {
-                  setWifeName("")
-                }
-              }}
-              className="flex gap-6"
-            >
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="yes" id="yes" />
-                <Label htmlFor="yes" className="cursor-pointer">
-                  Ja
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="no" id="no" />
-                <Label htmlFor="no" className="cursor-pointer">
-                  Nei
-                </Label>
-              </div>
-            </RadioGroup>
+    <div className="w-full">
+      <div className="mx-auto max-w-xl px-4 py-16 sm:py-24">
+        {/* Header */}
+        <div className="text-center">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
+            <Heart className="h-8 w-8 text-primary" />
           </div>
+          <h1 className="mt-6 font-serif text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            Generer Din Bønn
+          </h1>
+          <p className="mt-4 text-muted-foreground text-pretty">
+            Lag en personlig bønn tilpasset din livssituasjon. 
+            Bønnen kan inkludere din ektefelle hvis du ønsker.
+          </p>
+        </div>
 
-          {hasWife && (
-            <div className="space-y-2 animate-in fade-in slide-in-from-top-2 duration-300">
-              <Label htmlFor="wifeName" className="text-base font-medium">
-                Hva heter hun?
-              </Label>
-              <Input
-                id="wifeName"
-                type="text"
-                placeholder="Skriv inn navnet"
-                value={wifeName}
-                onChange={(e) => setWifeName(e.target.value)}
-                className="text-base"
-              />
+        {/* Form Card */}
+        <Card className="mt-10 border shadow-lg">
+          <CardContent className="p-6 sm:p-8">
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <Label className="text-base font-medium">Har du kone?</Label>
+                <RadioGroup
+                  value={hasWife === null ? "" : hasWife ? "yes" : "no"}
+                  onValueChange={(value) => {
+                    setHasWife(value === "yes")
+                    if (value === "no") {
+                      setWifeName("")
+                    }
+                  }}
+                  className="flex gap-6"
+                >
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="yes" id="yes" />
+                    <Label htmlFor="yes" className="cursor-pointer">
+                      Ja
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="no" id="no" />
+                    <Label htmlFor="no" className="cursor-pointer">
+                      Nei
+                    </Label>
+                  </div>
+                </RadioGroup>
+              </div>
+
+              {hasWife && (
+                <div className="space-y-2 animate-in fade-in slide-in-from-top-2 duration-300">
+                  <Label htmlFor="wifeName" className="text-base font-medium">
+                    Hva heter hun?
+                  </Label>
+                  <Input
+                    id="wifeName"
+                    type="text"
+                    placeholder="Skriv inn navnet"
+                    value={wifeName}
+                    onChange={(e) => setWifeName(e.target.value)}
+                    className="h-12 text-base"
+                  />
+                </div>
+              )}
+
+              <Button 
+                onClick={handleShowPrayer} 
+                disabled={!canShowPrayer} 
+                className="w-full gap-2 bg-primary text-primary-foreground hover:bg-primary/90" 
+                size="lg"
+              >
+                <Heart className="h-5 w-5" />
+                Vis bønnen
+              </Button>
             </div>
-          )}
+          </CardContent>
+        </Card>
 
-          <Button onClick={handleShowPrayer} disabled={!canShowPrayer} className="w-full" size="lg">
-            Vis bønnen
-          </Button>
-        </CardContent>
-      </Card>
+        {/* Info */}
+        <p className="mt-8 text-center text-sm text-muted-foreground">
+          Bønnen er basert på bibelske prinsipper og kan brukes som en daglig andakt.
+        </p>
+      </div>
     </div>
   )
 }
