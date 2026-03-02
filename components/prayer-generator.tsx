@@ -14,7 +14,7 @@ const SECTIONS = [
     title: "Overgivelse og gjenopprettelse",
     text: `Min kjære Herre Jesus, jeg kommer til deg nå for å bli gjenopprettet, fornyet, og fylt med ditt liv og din kjærlighet, sammen med all den nåde og barmhjertighet jeg så desperat trenger i dag. Jeg gir deg min dag og natt, alle mine opplevelser og alle jeg har vært i kontakt med. Jeg gir deg min ånd, sjel og kropp; mitt hjerte, sinn og vilje, og dekker meg selv med ditt blod. Jeg ber om at din Hellige Ånd gjenoppretter meg i deg, fornyer meg og leder denne tiden i bønn.
 
-Jeg inkluderer også ¨kone¨ i min bønn og tar henne med i alle ting jeg ber om og for. Dekk oss begge med ditt blod; vår ånd, sjel og kropp, vårt hjerte, sinn og vilje.
+Jeg inkluderer også ¨ektefelle¨ i min bønn og tar ¨objektpronomen¨ med i alle ting jeg ber om og for. Dekk oss begge med ditt blod; vår ånd, sjel og kropp, vårt hjerte, sinn og vilje.
 
 Jeg ber i total enighet med din Ånd, sammen med alle som ber for meg.`,
   },
@@ -35,32 +35,34 @@ Jeg fornekter alle andre guder og avguder og gir deg den plass i mitt hjerte som
 Jeg mottar ham, hans liv og hans verk som du innviet for meg. Takk for at du tilgir meg mine synder, og gir meg din rettferdighet som gjør meg hel i Jesus. Takk for at du gjorde meg levende med Ham, oppreiser og setter meg med Ham ved din høyre hånd, og etablerer meg i hans autoritet.`,
   },
   {
-    title: "Korsets verk og ¨kone¨s beskyttelse",
-    text: `Jeg tar nå fullstendig imot korsets verk, hvor jeg ble korsfestet med Kristus og døde med ham. Min synd er straffet, min natur er gått i døden, og jeg er fullstendig forløst. Jeg inkluderer ¨kone¨ i alt dette; hun er også korsfestet med Kristus, døde med ham, og er fullstendig forløst.
+    title: "Korsets verk og ¨ektefelle¨s beskyttelse",
+    text: `Jeg tar nå fullstendig imot korsets verk, hvor jeg ble korsfestet med Kristus og døde med ham. Min synd er straffet, min natur er gått i døden, og jeg er fullstendig forløst. Jeg inkluderer ¨ektefelle¨ i alt dette; ¨subjektpronomen¨ er også korsfestet med Kristus, døde med ham, og er fullstendig forløst.
 
-Jesu blod renser oss fra alle synder og sykdommer, fra alt ondt. Jeg har fullstendig tilgivelse for alt jeg har gjort og er fri fra skyld og dom. Jeg tar nå imot gaven av Jesu liv som gis til meg, og jeg mottar hele hans liv med all dens rikdom og lykksalighet for både meg og ¨kone¨.`,
+Jesu blod renser oss fra alle synder og sykdommer, fra alt ondt. Jeg har fullstendig tilgivelse for alt jeg har gjort og er fri fra skyld og dom. Jeg tar nå imot gaven av Jesu liv som gis til meg, og jeg mottar hele hans liv med all dens rikdom og lykksalighet for både meg og ¨ektefelle¨.`,
   },
   {
     title: "Oppstandelse og helliggjørelse",
     text: `Jeg er blitt korsfestet med Kristus og har nå blitt reist til liv i ham. Nå lever jeg med Kristus og han med meg. Jesus lever i meg. Jeg anerkjenner at jeg har blitt gjenreist med Kristus, satt med ham ved Faderens høyre hånd, og at all autoritet i himmelen og på jorden nå er gitt til meg i Jesus.
 
-Jesus, takk for at du sender din Hellige Ånd til å fornye meg og fylle meg og ¨kone¨. Jeg mottar ham nå. Kom Hellige Ånd, du er velkommen her. Fyll meg helt, forny meg helt, gjør meg hel igjen.`,
+Jesus, takk for at du sender din Hellige Ånd til å fornye meg og fylle meg og ¨ektefelle¨. Jeg mottar ham nå. Kom Hellige Ånd, du er velkommen her. Fyll meg helt, forny meg helt, gjør meg hel igjen.`,
   },
   {
     title: "Bønn om beskyttelse med Guds fulle rustning",
-    text: `Nå tar jeg på meg Guds fulle rustning, og jeg tar den også på ¨kone¨. Jeg tar på sannhetens belte, rettferdighetens brynje, og fredens evangeliums beredskap på føttene. Jeg løfter troens skjold mot hvert eneste onde angrep som kommer mot oss i dag.
+    text: `Nå tar jeg på meg Guds fulle rustning, og jeg tar den også på ¨ektefelle¨. Jeg tar på sannhetens belte, rettferdighetens brynje, og fredens evangeliums beredskap på føttene. Jeg løfter troens skjold mot hvert eneste onde angrep som kommer mot oss i dag.
 
-Jeg tar på frelsens hjelm, Åndens sverd, og velger å be hele veien. Jesus, takk for at du har gitt meg din autoritet til å stå mot Satan og hans rike, og i ditt navn befaler jeg nå alle onde ånder bort fra meg, fra ¨kone¨, og fra mitt hjem.`,
+Jeg tar på frelsens hjelm, Åndens sverd, og velger å be hele veien. Jesus, takk for at du har gitt meg din autoritet til å stå mot Satan og hans rike, og i ditt navn befaler jeg nå alle onde ånder bort fra meg, fra ¨ektefelle¨, og fra mitt hjem.`,
   },
   {
     title: "Bønn om Guds ledelse og velsignelse",
     text: `Hellige Ånd, takk for at du bor i meg. Du er min rådgiver, trøster og styrke. Du leder meg i all sannhet og åpenbarer Jesus for meg. Åpne mine øyne for å se ham, mine ører for å høre hans stemme, mitt hjerte for å motta hans kjærlighet.
 
-Herre, jeg overgir denne dagen til deg. Gi meg visdom, nåde og styrke til å leve for deg. Velsign ¨kone¨ og bevar henne. Fyll vårt hjem med din fred og kjærlighet.
+Herre, jeg overgir denne dagen til deg. Gi meg visdom, nåde og styrke til å leve for deg. Velsign ¨ektefelle¨ og bevar ¨objektpronomen¨. Fyll vårt hjem med din fred og kjærlighet.
 
 Jeg ber dette alt i Jesu mektige navn. Amen.`,
   },
 ]
+
+type SpouseType = "none" | "wife" | "husband"
 
 function getGenitive(name: string): string {
   const trimmed = name.trim()
@@ -70,15 +72,28 @@ function getGenitive(name: string): string {
   return `${trimmed}s`
 }
 
-function processText(text: string, hasWife: boolean, wifeName: string): string {
-  if (hasWife && wifeName.trim()) {
-    const genitive = getGenitive(wifeName)
-    let processed = text.replace(/¨kone¨s/g, genitive)
-    processed = processed.replace(/¨kone¨/g, wifeName.trim())
+function processText(text: string, spouseType: SpouseType, spouseName: string): string {
+  if (spouseType !== "none" && spouseName.trim()) {
+    const genitive = getGenitive(spouseName)
+    const isWife = spouseType === "wife"
+    
+    // Replace spouse name and genitive
+    let processed = text.replace(/¨ektefelle¨s/g, genitive)
+    processed = processed.replace(/¨ektefelle¨/g, spouseName.trim())
+    
+    // Replace pronouns based on gender
+    processed = processed.replace(/¨subjektpronomen¨/g, isWife ? "hun" : "han")
+    processed = processed.replace(/¨objektpronomen¨/g, isWife ? "henne" : "ham")
+    processed = processed.replace(/¨eiendomspronomen¨/g, isWife ? "hennes" : "hans")
+    
     return processed
   } else {
-    let processed = text.replace(/¨kone¨s\s*/g, "")
-    processed = processed.replace(/¨kone¨\s*/g, "")
+    // Remove all spouse-related placeholders
+    let processed = text.replace(/¨ektefelle¨s\s*/g, "")
+    processed = processed.replace(/¨ektefelle¨\s*/g, "")
+    processed = processed.replace(/¨subjektpronomen¨\s*/g, "")
+    processed = processed.replace(/¨objektpronomen¨\s*/g, "")
+    processed = processed.replace(/¨eiendomspronomen¨\s*/g, "")
     processed = processed.replace(/\s+/g, " ")
     processed = processed.replace(/\s+([.,;:])/g, "$1")
     processed = processed.replace(/,\s*,/g, ",")
@@ -97,23 +112,22 @@ function renderParagraphs(text: string) {
 }
 
 interface PrayerGeneratorProps {
-  initialHasWife?: boolean
-  initialWifeName?: string
+  initialSpouseType?: SpouseType
+  initialSpouseName?: string
   isLoggedIn?: boolean
 }
 
 export default function PrayerGenerator({ 
-  initialHasWife = false, 
-  initialWifeName = "",
+  initialSpouseType = "none", 
+  initialSpouseName = "",
   isLoggedIn = false 
 }: PrayerGeneratorProps) {
-  const [hasWife, setHasWife] = useState<boolean | null>(initialHasWife || null)
-  const [wifeName, setWifeName] = useState(initialWifeName)
-  const [showPrayer, setShowPrayer] = useState(Boolean(initialWifeName && initialHasWife))
+  const [spouseType, setSpouseType] = useState<SpouseType>(initialSpouseType)
+  const [spouseName, setSpouseName] = useState(initialSpouseName)
+  const [showPrayer, setShowPrayer] = useState(Boolean(initialSpouseName && initialSpouseType !== "none"))
 
   const handleShowPrayer = () => {
-    if (hasWife === null) return
-    if (hasWife && !wifeName.trim()) return
+    if (spouseType !== "none" && !spouseName.trim()) return
     setShowPrayer(true)
   }
 
@@ -121,7 +135,7 @@ export default function PrayerGenerator({
     setShowPrayer(false)
   }
 
-  const canShowPrayer = hasWife === false || (hasWife === true && wifeName.trim().length > 0)
+  const canShowPrayer = spouseType === "none" || (spouseType !== "none" && spouseName.trim().length > 0)
 
   const handlePrint = () => {
     window.print()
@@ -152,9 +166,9 @@ export default function PrayerGenerator({
                 <h1 className="font-serif text-2xl font-bold text-foreground sm:text-3xl">
                   Din Daglige Bønn
                 </h1>
-                {hasWife && wifeName && (
+                {spouseType !== "none" && spouseName && (
                   <p className="mt-1 text-muted-foreground">
-                    Inkluderer bønn for {wifeName}
+                    Inkluderer bønn for din {spouseType === "wife" ? "kone" : "ektemann"} {spouseName}
                   </p>
                 )}
               </div>
@@ -176,8 +190,8 @@ export default function PrayerGenerator({
         <div className="mx-auto max-w-3xl px-4 py-10">
           <div className="space-y-10">
             {SECTIONS.map((section, index) => {
-              const processedTitle = processText(section.title, hasWife ?? false, wifeName)
-              const processedText = processText(section.text, hasWife ?? false, wifeName)
+              const processedTitle = processText(section.title, spouseType, spouseName)
+              const processedText = processText(section.text, spouseType, spouseName)
 
               return (
                 <section key={index} className="group">
@@ -234,7 +248,7 @@ export default function PrayerGenerator({
             <Users className="h-8 w-8 text-primary" />
           </div>
           <h1 className="mt-6 font-serif text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Helhetlig bønn for meg og min familie
+            Helhetlig bønn for meg og min ektefelle
           </h1>
           <p className="mt-4 text-muted-foreground text-pretty">
             En omfattende daglig bønn som dekker overgivelse, tilbedelse, bekjennelse, 
@@ -247,43 +261,49 @@ export default function PrayerGenerator({
           <CardContent className="p-6 sm:p-8">
             <div className="space-y-6">
               <div className="space-y-4">
-                <Label className="text-base font-medium">Har du kone?</Label>
+                <Label className="text-base font-medium">Har du en ektefelle?</Label>
                 <RadioGroup
-                  value={hasWife === null ? "" : hasWife ? "yes" : "no"}
-                  onValueChange={(value) => {
-                    setHasWife(value === "yes")
-                    if (value === "no") {
-                      setWifeName("")
+                  value={spouseType}
+                  onValueChange={(value: SpouseType) => {
+                    setSpouseType(value)
+                    if (value === "none") {
+                      setSpouseName("")
                     }
                   }}
-                  className="flex gap-6"
+                  className="flex flex-wrap gap-4"
                 >
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="yes" id="yes" />
-                    <Label htmlFor="yes" className="cursor-pointer">
-                      Ja
+                    <RadioGroupItem value="none" id="none" />
+                    <Label htmlFor="none" className="cursor-pointer">
+                      Nei
                     </Label>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="no" id="no" />
-                    <Label htmlFor="no" className="cursor-pointer">
-                      Nei
+                    <RadioGroupItem value="wife" id="wife" />
+                    <Label htmlFor="wife" className="cursor-pointer">
+                      Ja, jeg har kone
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="husband" id="husband" />
+                    <Label htmlFor="husband" className="cursor-pointer">
+                      Ja, jeg har ektemann
                     </Label>
                   </div>
                 </RadioGroup>
               </div>
 
-              {hasWife && (
+              {spouseType !== "none" && (
                 <div className="space-y-2 animate-in fade-in slide-in-from-top-2 duration-300">
-                  <Label htmlFor="wifeName" className="text-base font-medium">
-                    Hva heter hun?
+                  <Label htmlFor="spouseName" className="text-base font-medium">
+                    Hva heter {spouseType === "wife" ? "hun" : "han"}?
                   </Label>
                   <Input
-                    id="wifeName"
+                    id="spouseName"
                     type="text"
                     placeholder="Skriv inn navnet"
-                    value={wifeName}
-                    onChange={(e) => setWifeName(e.target.value)}
+                    value={spouseName}
+                    onChange={(e) => setSpouseName(e.target.value)}
                     className="h-12 text-base"
                   />
                 </div>

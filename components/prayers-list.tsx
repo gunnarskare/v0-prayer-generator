@@ -8,7 +8,7 @@ import { Heart, Users, Sun, Moon, Utensils, Shield, Clock, ChevronRight, Plus, B
 const prayers = [
   {
     id: "helhetlig-bonn",
-    title: "Helhetlig bønn for meg og min familie",
+    title: "Helhetlig bønn for meg og min ektefelle",
     description: "En omfattende daglig bønn som dekker overgivelse, tilbedelse, bekjennelse, takknemlighet, beskyttelse og velsignelse.",
     icon: Users,
     duration: "15-20 min",

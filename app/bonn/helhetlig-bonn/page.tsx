@@ -3,42 +3,55 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import PrayerGenerator from "@/components/prayer-generator"
 
-export default async function HelhetligBonnPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ kone?: string }>
-}) {
-  const params = await searchParams
+type SpouseType = "none" | "wife" | "husband"
+
+export default async function HelhetligBonnPage() {
   const supabase = await createClient()
 
-  // Check if user is logged in and get their profile
+  // Check if user is logged in and get their profile and spouse info
   const {
     data: { user },
   } = await supabase.auth.getUser()
 
-  let profile = null
-  if (user) {
-    const { data } = await supabase
-      .from("profiles")
-      .select("has_wife, wife_name")
-      .eq("id", user.id)
-      .single()
-    profile = data
-  }
+  let initialSpouseType: SpouseType = "none"
+  let initialSpouseName = ""
 
-  // Use URL param first, then profile data
-  const wifeNameFromUrl = params.kone
-  const wifeNameFromProfile = profile?.has_wife ? profile?.wife_name : null
-  const initialWifeName = wifeNameFromUrl || wifeNameFromProfile || ""
-  const initialHasWife = Boolean(initialWifeName) || profile?.has_wife || false
+  if (user) {
+    // Check family_members for spouse
+    const { data: spouse } = await supabase
+      .from("family_members")
+      .select("type, name")
+      .eq("user_id", user.id)
+      .eq("type", "spouse")
+      .single()
+
+    if (spouse) {
+      // We need to determine if it's wife or husband - for now default to wife
+      // This could be extended with a gender field in family_members
+      initialSpouseType = "wife"
+      initialSpouseName = spouse.name
+    } else {
+      // Fall back to legacy profile data
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("has_wife, wife_name")
+        .eq("id", user.id)
+        .single()
+
+      if (profile?.has_wife && profile?.wife_name) {
+        initialSpouseType = "wife"
+        initialSpouseName = profile.wife_name
+      }
+    }
+  }
 
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="flex-1 bg-background">
         <PrayerGenerator 
-          initialHasWife={initialHasWife}
-          initialWifeName={initialWifeName}
+          initialSpouseType={initialSpouseType}
+          initialSpouseName={initialSpouseName}
           isLoggedIn={!!user}
         />
       </main>
