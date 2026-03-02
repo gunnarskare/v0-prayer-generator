@@ -1,10 +1,12 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Menu, X, Book, Heart, Calendar, Home } from "lucide-react"
+import { Menu, Book, Heart, Calendar, Home, User, LogIn } from "lucide-react"
+import type { User as SupabaseUser } from "@supabase/supabase-js"
 
 const navigation = [
   { name: "Hjem", href: "/", icon: Home },
@@ -15,6 +17,20 @@ const navigation = [
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)
+  const [user, setUser] = useState<SupabaseUser | null>(null)
+  const supabase = createClient()
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user)
+    })
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+
+    return () => subscription.unsubscribe()
+  }, [supabase.auth])
 
   return (
     <header className="sticky top-0 z-50 w-full bg-hero-bg text-hero-foreground">
@@ -41,14 +57,36 @@ export function Header() {
           ))}
         </nav>
 
-        {/* CTA Button */}
-        <div className="hidden md:block">
-          <Button 
-            asChild 
-            className="bg-primary text-primary-foreground hover:bg-primary/90"
-          >
-            <Link href="/bonn">Start Bønn</Link>
-          </Button>
+        {/* Auth Buttons */}
+        <div className="hidden md:flex md:items-center md:gap-2">
+          {user ? (
+            <Button 
+              asChild 
+              variant="ghost"
+              className="text-hero-foreground/80 hover:bg-white/10 hover:text-hero-foreground"
+            >
+              <Link href="/min-side" className="flex items-center gap-2">
+                <User className="h-4 w-4" />
+                Min side
+              </Link>
+            </Button>
+          ) : (
+            <>
+              <Button 
+                asChild 
+                variant="ghost"
+                className="text-hero-foreground/80 hover:bg-white/10 hover:text-hero-foreground"
+              >
+                <Link href="/auth/logg-inn">Logg inn</Link>
+              </Button>
+              <Button 
+                asChild 
+                className="bg-primary text-primary-foreground hover:bg-primary/90"
+              >
+                <Link href="/auth/registrer">Registrer</Link>
+              </Button>
+            </>
+          )}
         </div>
 
         {/* Mobile Menu */}
@@ -82,13 +120,39 @@ export function Header() {
                   </Link>
                 ))}
               </nav>
-              <div className="pt-4">
-                <Button 
-                  asChild 
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
-                >
-                  <Link href="/bonn" onClick={() => setIsOpen(false)}>Start Bønn</Link>
-                </Button>
+              <div className="pt-4 space-y-2">
+                {user ? (
+                  <Button 
+                    asChild 
+                    className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                  >
+                    <Link href="/min-side" onClick={() => setIsOpen(false)}>
+                      <User className="mr-2 h-4 w-4" />
+                      Min side
+                    </Link>
+                  </Button>
+                ) : (
+                  <>
+                    <Button 
+                      asChild 
+                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                    >
+                      <Link href="/auth/registrer" onClick={() => setIsOpen(false)}>
+                        Registrer
+                      </Link>
+                    </Button>
+                    <Button 
+                      asChild 
+                      variant="outline"
+                      className="w-full border-hero-foreground/20 text-hero-foreground hover:bg-white/10"
+                    >
+                      <Link href="/auth/logg-inn" onClick={() => setIsOpen(false)}>
+                        <LogIn className="mr-2 h-4 w-4" />
+                        Logg inn
+                      </Link>
+                    </Button>
+                  </>
+                )}
               </div>
             </div>
           </SheetContent>

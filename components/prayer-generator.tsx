@@ -95,10 +95,20 @@ function renderParagraphs(text: string) {
   ))
 }
 
-export default function PrayerGenerator() {
-  const [hasWife, setHasWife] = useState<boolean | null>(null)
-  const [wifeName, setWifeName] = useState("")
-  const [showPrayer, setShowPrayer] = useState(false)
+interface PrayerGeneratorProps {
+  initialHasWife?: boolean
+  initialWifeName?: string
+  isLoggedIn?: boolean
+}
+
+export default function PrayerGenerator({ 
+  initialHasWife = false, 
+  initialWifeName = "",
+  isLoggedIn = false 
+}: PrayerGeneratorProps) {
+  const [hasWife, setHasWife] = useState<boolean | null>(initialHasWife || null)
+  const [wifeName, setWifeName] = useState(initialWifeName)
+  const [showPrayer, setShowPrayer] = useState(Boolean(initialWifeName && initialHasWife))
 
   const handleShowPrayer = () => {
     if (hasWife === null) return
@@ -284,6 +294,18 @@ export default function PrayerGenerator() {
         <p className="mt-8 text-center text-sm text-muted-foreground">
           Bønnen er basert på bibelske prinsipper og kan brukes som en daglig andakt.
         </p>
+
+        {/* Login prompt */}
+        {!isLoggedIn && (
+          <div className="mt-6 rounded-lg border border-primary/20 bg-primary/5 p-4 text-center">
+            <p className="text-sm text-muted-foreground">
+              <a href="/auth/registrer" className="text-primary hover:underline font-medium">
+                Opprett konto
+              </a>
+              {" "}for å lagre informasjonen din og få automatisk personlige bønner.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   )
